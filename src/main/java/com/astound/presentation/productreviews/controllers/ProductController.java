@@ -6,27 +6,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
+import static com.astound.presentation.productreviews.controllers.ControllerConstants.ERROR_PAGE;
+import static com.astound.presentation.productreviews.controllers.ControllerConstants.PRODUCT_PAGE;
+import static com.astound.presentation.productreviews.repository.ProductRepository.products;
+
 
 @Controller
 @RequestMapping(value = "/product")
 public class ProductController
 {
+
 	@RequestMapping(value = "/get")
 	public String getProduct(@RequestParam String id, Model model)
 	{
 
-		model.addAttribute("id", id);
-
-		Product product = Product.builder().name("aaa").description("").build();
-		product.setPrice(1212d);
-
-		System.out.println(product.getName());
-
-
-
-		return "product";
-
+		Optional<Product> product = products.stream().filter(p -> p.getId().equals(id)).findAny();
+		if (product.isPresent())
+		{
+			model.addAttribute("product", product);
+		}else{
+			//return ERROR_PAGE;
+		}
+		return PRODUCT_PAGE;
 
 	}
-
 }

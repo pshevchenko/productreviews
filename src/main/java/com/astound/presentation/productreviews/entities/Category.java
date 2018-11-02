@@ -1,16 +1,18 @@
 package com.astound.presentation.productreviews.entities;
 
-
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
 @Builder
-public class Product
+public class Category
 {
-	private Integer id;
+	private int id;
 	private String name;
-	private Double price;
 	private String description;
+	private List<Product> products = new ArrayList<>();
 }
