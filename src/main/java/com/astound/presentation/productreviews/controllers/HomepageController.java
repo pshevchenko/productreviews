@@ -31,4 +31,10 @@ public class HomepageController
 		}
 		return HOME_PAGE;
 	}
+
+	@RequestMapping(value = "/thanks")
+	public String getThanks()
+	{
+		return "thanks";
+	}
 }
