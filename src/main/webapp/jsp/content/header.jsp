@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/"><img class="navbar-brand" src="/favicon_512x512-192x192.png"/></a>
+            <a href="/"><img class="navbar-brand" src="/logo.png"/></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
