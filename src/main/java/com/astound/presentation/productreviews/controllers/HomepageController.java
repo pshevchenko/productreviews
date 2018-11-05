@@ -4,8 +4,8 @@ import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 @RequestMapping(value = "/")
 public class HomepageController
 {
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String getProduct(Model model)
 	{
 		List<Category> categories = CategoryRepository.getCategories();

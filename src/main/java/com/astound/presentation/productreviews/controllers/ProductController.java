@@ -5,7 +5,9 @@ import com.astound.presentation.productreviews.entities.Review;
 import com.astound.presentation.productreviews.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
@@ -19,7 +21,7 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 public class ProductController
 {
 
-	@RequestMapping(value = "/{productId}")
+	@GetMapping(value = "/{productId}")
 	public String getProduct(@PathVariable Integer productId, Model model)
 	{
 		Optional<Product> product = ProductRepository.getProducts().stream()
@@ -37,7 +39,7 @@ public class ProductController
 		return PRODUCT_PAGE;
 	}
 
-	@RequestMapping(value = "/{productId}/reviews")
+	@PostMapping(value = "/{productId}/reviews")
 	public String writeReview(@PathVariable Integer productId, Review review, Model model)
 	{
 		Optional<Product> productOptional = ProductRepository.getProducts().stream()
