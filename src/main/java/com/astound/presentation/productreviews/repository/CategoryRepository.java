@@ -8,5 +8,10 @@ import java.util.List;
 
 public class CategoryRepository
 {
-	public static List<Category> categories = new ArrayList<>();
+	private static List<Category> categories = new ArrayList<>();
+
+	public static List<Category> getCategories()
+	{
+		return categories;
+	}
 }

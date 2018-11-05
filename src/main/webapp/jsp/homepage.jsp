@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,13 +41,23 @@
 <div class="container">
 
     <div class="starter-template">
-        <h1>Product page</h1>
-        <p class="lead">
-            id = ${product.id} </p>
+
+        <div class="row">
+
+            <c:forEach items="${categories}" var="category">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href="/category/get?id=${category.id}"><img src="holder.js/242x200"></a>
+                        <div class="caption">
+                            <h3>${category.name}</h3>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+
+        </div>
     </div>
-
-</div><!-- /.container -->
-
+</div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -53,9 +65,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/holder.min.js"></script>
 </body>
 </html>
-
-
-
-
