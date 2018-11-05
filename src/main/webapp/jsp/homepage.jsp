@@ -8,7 +8,7 @@
     <c:forEach items="${categories}" var="category">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <a href="/category/get?id=${category.id}"><img src="holder.js/242x200"></a>
+                <a href="/categories/${category.id}"><img src="holder.js/242x200"></a>
                 <div class="caption">
                     <h3>${category.name}</h3>
                 </div>

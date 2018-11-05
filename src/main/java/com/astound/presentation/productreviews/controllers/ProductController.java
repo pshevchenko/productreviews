@@ -1,11 +1,12 @@
 package com.astound.presentation.productreviews.controllers;
 
 import com.astound.presentation.productreviews.entities.Product;
+import com.astound.presentation.productreviews.entities.Review;
 import com.astound.presentation.productreviews.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -14,18 +15,20 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 
 
 @Controller
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/products")
 public class ProductController
 {
 
-	@RequestMapping(value = "/get")
-	public String getProduct(@RequestParam String id, Model model)
+	@RequestMapping(value = "/{productId}")
+	public String getProduct(@PathVariable Integer productId, Model model)
 	{
-		Optional<Product> product = ProductRepository.getProducts().stream().filter(p -> p.getId().equals(Integer.valueOf(id)))
+		Optional<Product> product = ProductRepository.getProducts().stream()
+				.filter(p -> p.getId().equals(Integer.valueOf(productId)))
 				.findAny();
 		if (product.isPresent())
 		{
 			model.addAttribute("product", product.get());
+			model.addAttribute("review", new Review());
 		}
 		else
 		{
@@ -33,4 +36,25 @@ public class ProductController
 		}
 		return PRODUCT_PAGE;
 	}
+
+	@RequestMapping(value = "/{productId}/reviews")
+	public String writeReview(@PathVariable Integer productId, Review review, Model model)
+	{
+		Optional<Product> productOptional = ProductRepository.getProducts().stream()
+				.filter(p -> p.getId().equals(productId))
+				.findAny();
+		if (productOptional.isPresent())
+		{
+			Product product = productOptional.get();
+			product.getReviews().add(review.getText());
+			model.addAttribute("product", product);
+			model.addAttribute("review", new Review());
+		}
+		else
+		{
+			return ERROR_PAGE;
+		}
+		return PRODUCT_PAGE;
+	}
+
 }
