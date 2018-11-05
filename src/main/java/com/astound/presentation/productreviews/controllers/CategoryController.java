@@ -2,6 +2,7 @@ package com.astound.presentation.productreviews.controllers;
 
 import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,16 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/categories")
 public class CategoryController
 {
+	private final CategoryRepository categoryRepository;
+
 	@GetMapping(value = "/{categoryId}")
 	public String getCategory(@PathVariable Integer categoryId, Model model)
 	{
-		Optional<Category> category = CategoryRepository.getCategories().stream()
+		Optional<Category> category = categoryRepository.getCategories().stream()
 				.filter(cat -> cat.getId().equals(Integer.valueOf(categoryId))).findAny();
 		if (category.isPresent())
 		{

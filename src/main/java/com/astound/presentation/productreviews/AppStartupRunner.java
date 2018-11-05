@@ -3,6 +3,7 @@ package com.astound.presentation.productreviews;
 import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.entities.Product;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,11 @@ import java.util.Arrays;
 
 
 @Component
+@RequiredArgsConstructor
 public class AppStartupRunner implements ApplicationRunner
 {
+	private final CategoryRepository categoryRepository;
+
 	@Override
 	public void run(ApplicationArguments args)
 	{
@@ -30,7 +34,7 @@ public class AppStartupRunner implements ApplicationRunner
 
 		category1.setProducts(Arrays.asList(product1, product2, product3));
 
-		CategoryRepository.getCategories().add(category1);
+		categoryRepository.getCategories().add(category1);
 
 		//Category 2
 		Category category2 = Category.builder().id(2).name("Category 2").description("desc").build();
@@ -43,6 +47,6 @@ public class AppStartupRunner implements ApplicationRunner
 
 		category2.setProducts(Arrays.asList(product4, product5));
 
-		CategoryRepository.getCategories().add(category2);
+		categoryRepository.getCategories().add(category2);
 	}
 }

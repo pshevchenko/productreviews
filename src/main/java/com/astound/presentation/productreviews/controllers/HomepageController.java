@@ -2,6 +2,7 @@ package com.astound.presentation.productreviews.controllers;
 
 import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,16 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/")
 public class HomepageController
 {
+	private final CategoryRepository categoryRepository;
+
 	@GetMapping
 	public String getProduct(Model model)
 	{
-		List<Category> categories = CategoryRepository.getCategories();
+		List<Category> categories = categoryRepository.getCategories();
 		if (!categories.isEmpty())
 		{
 			model.addAttribute("categories", categories);

@@ -3,6 +3,7 @@ package com.astound.presentation.productreviews.controllers;
 import com.astound.presentation.productreviews.entities.Product;
 import com.astound.presentation.productreviews.entities.Review;
 import com.astound.presentation.productreviews.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,15 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 
 @Controller
 @RequestMapping(value = "/products")
+@RequiredArgsConstructor
 public class ProductController
 {
+	private final ProductRepository productRepository;
 
 	@GetMapping(value = "/{productId}")
 	public String getProduct(@PathVariable Integer productId, Model model)
 	{
-		Optional<Product> product = ProductRepository.getProducts().stream()
+		Optional<Product> product = productRepository.getProducts().stream()
 				.filter(p -> p.getId().equals(Integer.valueOf(productId)))
 				.findAny();
 		if (product.isPresent())
@@ -42,7 +45,7 @@ public class ProductController
 	@PostMapping(value = "/{productId}/reviews")
 	public String writeReview(@PathVariable Integer productId, Review review, Model model)
 	{
-		Optional<Product> productOptional = ProductRepository.getProducts().stream()
+		Optional<Product> productOptional = productRepository.getProducts().stream()
 				.filter(p -> p.getId().equals(productId))
 				.findAny();
 		if (productOptional.isPresent())
