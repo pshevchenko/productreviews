@@ -6,4 +6,6 @@ public class ControllerConstants
 	public static final String CATEGORY_PAGE = "category";
 	public static final String ERROR_PAGE = "error";
 	public static final String HOME_PAGE = "homepage";
+
+	public static final String REGISTRATION_PAGE = "registration";
 }
