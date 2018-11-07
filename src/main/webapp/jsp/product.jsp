@@ -23,7 +23,7 @@
         <p class="lead"> Reviews </p>
         <ul class="list-group">
             <c:forEach items="${product.reviews}" var="review">
-                <li class="list-group-item">${review}</li>
+                <li class="list-group-item">${review.text}</li>
             </c:forEach>
         </ul>
 

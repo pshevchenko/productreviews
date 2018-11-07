@@ -6,21 +6,33 @@ import com.astound.presentation.productreviews.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 @Component
 @RequiredArgsConstructor
+@ConditionalOnProperty(value = "import.testdata", havingValue = "true")
 public class AppStartupRunner implements ApplicationRunner
 {
+	@PostConstruct
+	public void onStartUp()
+	{
+		System.out.println(
+				"--------------------------------AppStartupRunner loaded-------------------------------------------------------");
+	}
+
 	private final CategoryRepository categoryRepository;
 
 	@Override
 	public void run(ApplicationArguments args)
 	{
+		System.out.println("test data imported");
+
 		//Category 1
 		Category category1 = Category.builder().id(1).name("Category 1").description("desc").build();
 

@@ -14,10 +14,16 @@ public class ProductRepository
 {
 	private final CategoryRepository categoryRepository;
 
-	public List<Product> getProducts()
+	public List<Product> getAllProducts()
 	{
 		return categoryRepository.getCategories().stream().flatMap(category -> category.getProducts().stream())
 				.collect(Collectors.toList());
+	}
+
+	public Product getProductById(Integer productId)
+	{
+		return getAllProducts().stream().filter(product -> product.getId().equals(productId)).findAny().orElse(null);
+
 	}
 
 }

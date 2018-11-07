@@ -3,6 +3,7 @@ package com.astound.presentation.productreviews.controllers;
 import com.astound.presentation.productreviews.entities.Product;
 import com.astound.presentation.productreviews.entities.Review;
 import com.astound.presentation.productreviews.repository.ProductRepository;
+import com.astound.presentation.productreviews.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 import static com.astound.presentation.productreviews.controllers.ControllerConstants.ERROR_PAGE;
 import static com.astound.presentation.productreviews.controllers.ControllerConstants.PRODUCT_PAGE;
@@ -23,16 +22,15 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 public class ProductController
 {
 	private final ProductRepository productRepository;
+	private final ReviewRepository reviewRepository;
 
 	@GetMapping(value = "/{productId}")
 	public String getProduct(@PathVariable Integer productId, Model model)
 	{
-		Optional<Product> product = productRepository.getProducts().stream()
-				.filter(p -> p.getId().equals(Integer.valueOf(productId)))
-				.findAny();
-		if (product.isPresent())
+		Product product = productRepository.getProductById(productId);
+		if (product != null)
 		{
-			model.addAttribute("product", product.get());
+			model.addAttribute("product", product);
 			model.addAttribute("review", new Review());
 		}
 		else
@@ -43,15 +41,14 @@ public class ProductController
 	}
 
 	@PostMapping(value = "/{productId}/reviews")
-	public String writeReview(@PathVariable Integer productId, Review review, Model model)
+	public String addReview(@PathVariable Integer productId, Review review, Model model)
 	{
-		Optional<Product> productOptional = productRepository.getProducts().stream()
-				.filter(p -> p.getId().equals(productId))
-				.findAny();
-		if (productOptional.isPresent())
+
+		Product product = productRepository.getProductById(productId);
+
+		if (product != null)
 		{
-			Product product = productOptional.get();
-			product.getReviews().add(review.getText());
+			reviewRepository.addReview(product, review);
 			model.addAttribute("product", product);
 			model.addAttribute("review", new Review());
 		}

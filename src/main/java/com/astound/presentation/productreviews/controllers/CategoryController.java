@@ -26,7 +26,7 @@ public class CategoryController
 	public String getCategory(@PathVariable Integer categoryId, Model model)
 	{
 		Optional<Category> category = categoryRepository.getCategories().stream()
-				.filter(cat -> cat.getId().equals(Integer.valueOf(categoryId))).findAny();
+				.filter(cat -> cat.getId().equals(categoryId)).findAny();
 		if (category.isPresent())
 		{
 			model.addAttribute("category", category.get());
