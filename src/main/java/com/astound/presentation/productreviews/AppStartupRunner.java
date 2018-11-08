@@ -19,19 +19,20 @@ import java.util.Arrays;
 @ConditionalOnProperty(value = "import.testdata", havingValue = "true")
 public class AppStartupRunner implements ApplicationRunner
 {
+	private final CategoryRepository categoryRepository;
+
 	@PostConstruct
 	public void onStartUp()
 	{
 		System.out.println(
-				"--------------------------------AppStartupRunner loaded-------------------------------------------------------");
+				"------------------------------------------------------AppStartupRunner LOADED------------------------------------------------------");
 	}
-
-	private final CategoryRepository categoryRepository;
 
 	@Override
 	public void run(ApplicationArguments args)
 	{
-		System.out.println("test data imported");
+		System.out.println(
+				"------------------------------------------------------TEST DATA IMPORTED------------------------------------------------------");
 
 		//Category 1
 		Category category1 = Category.builder().id(1).name("Category 1").description("desc").build();
@@ -44,7 +45,7 @@ public class AppStartupRunner implements ApplicationRunner
 		product2.setReviews(new ArrayList<>());
 		product3.setReviews(new ArrayList<>());
 
-		category1.setProducts(Arrays.asList(product1, product2, product3));
+		category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
 
 		categoryRepository.getCategories().add(category1);
 
@@ -57,7 +58,7 @@ public class AppStartupRunner implements ApplicationRunner
 		product4.setReviews(new ArrayList<>());
 		product5.setReviews(new ArrayList<>());
 
-		category2.setProducts(Arrays.asList(product4, product5));
+		category2.getProducts().addAll(Arrays.asList(product4, product5));
 
 		categoryRepository.getCategories().add(category2);
 	}

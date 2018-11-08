@@ -22,8 +22,10 @@ public class HomepageController
 	private final CategoryRepository categoryRepository;
 
 	@GetMapping
-	public String getProduct(Model model)
+	public String getHomepage(Model model)
 	{
+		System.out.println(
+				"------------------------------------------------------HOMEPAGE------------------------------------------------------");
 		List<Category> categories = categoryRepository.getCategories();
 		if (!categories.isEmpty())
 		{

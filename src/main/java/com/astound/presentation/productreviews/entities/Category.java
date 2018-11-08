@@ -18,5 +18,5 @@ public class Category
 	private Integer id;
 	private String name;
 	private String description;
-	private List<Product> products = new ArrayList<>();
+	private final List<Product> products = new ArrayList<>();
 }
