@@ -1,7 +1,7 @@
 package com.astound.presentation.productreviews.controllers;
 
 import com.astound.presentation.productreviews.entities.Category;
-import com.astound.presentation.productreviews.repository.CategoryRepository;
+import com.astound.presentation.productreviews.repository.stub.CategoryRepositoryStub;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 @RequestMapping(value = "/categories")
 public class CategoryController
 {
-	private final CategoryRepository categoryRepository;
+	private final CategoryRepositoryStub categoryRepository;
 
 	@GetMapping(value = "/{categoryId}")
 	public String getCategory(@PathVariable Integer categoryId, Model model)

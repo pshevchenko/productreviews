@@ -2,6 +2,7 @@ package com.astound.presentation.productreviews.controllers;
 
 import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
+import com.astound.presentation.productreviews.repository.stub.CategoryRepositoryStub;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class HomepageController
 	@GetMapping
 	public String getProduct(Model model)
 	{
-		List<Category> categories = categoryRepository.getCategories();
+		List<Category> categories = (List<Category>) categoryRepository.findAll();
 		if (!categories.isEmpty())
 		{
 			model.addAttribute("categories", categories);

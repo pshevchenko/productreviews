@@ -1,19 +1,12 @@
 package com.astound.presentation.productreviews.repository;
 
 import com.astound.presentation.productreviews.entities.Category;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 
-@Component
-public class CategoryRepository
+@Repository
+public interface CategoryRepository extends CrudRepository<Category, Integer>
 {
-	private List<Category> categories = new ArrayList<>();
 
-	public List<Category> getCategories()
-	{
-		return categories;
-	}
 }
