@@ -23,7 +23,7 @@ public class HomepageController
 	private final CategoryRepository categoryRepository;
 
 	@GetMapping
-	public String getProduct(Model model)
+	public String getHomepage(Model model)
 	{
 		List<Category> categories = (List<Category>) categoryRepository.findAll();
 		if (!categories.isEmpty())

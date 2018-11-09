@@ -53,7 +53,7 @@ public class AppStartupRunner implements ApplicationRunner
 
 		categoryRepository.save(category1);
 
-//		//Category 2
+		//Category 2
 		Category category2 = Category.builder().id(2).name("Category 2").description("desc").build();
 
 		Product product4 = Product.builder().id(4).name("Product 4").description("desc").build();
