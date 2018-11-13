@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Integer>
 {
-
+	Category getCategoryById(Integer id);
 }

@@ -1,15 +1,11 @@
 package com.astound.presentation.productreviews.repository;
 
-import com.astound.presentation.productreviews.entities.Product;
 import com.astound.presentation.productreviews.entities.Review;
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 
-@Component
-public class ReviewRepository
+@Repository
+public interface ReviewRepository extends CrudRepository<Review, Integer>
 {
-	public void addReview(Product product, Review review)
-	{
-		product.getReviews().add(review);
-	}
 }
