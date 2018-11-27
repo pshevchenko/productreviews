@@ -3,7 +3,10 @@
 
 <jsp:include page="content/header.jsp"/>
 
-
+<c:if test="${not empty sessionScope.registered}">
+    <span style="color:red"><c:out value="${sessionScope.registered}"/></span>
+    <c:remove var="registered" scope="session" />
+</c:if>
 <form:form method="POST" class="col-md-6 col-md-offset-3" action="/registration"
            modelAttribute="customer">
     <div class="form-group">

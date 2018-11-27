@@ -1,3 +1,5 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +17,9 @@
 </head>
 
 <body>
-
+<%
+    String username = (String) session.getAttribute("username");
+%>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -27,13 +31,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/"><img class="navbar-brand" src="/logo.png"/></a>
+            <a href="/"><img class="navbar-brand" src="/img/logo.png"/></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/thanks">Thanks</a></li>
                 <li><a href="/registration">Registration</a></li>
+                <c:if test="${not empty sessionScope.username}">
+                    <li><a href='<spring:url value="/logout"/>'>Logout <%=username%></a></li>
+                </c:if>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -1,12 +1,15 @@
 package com.astound.presentation.productreviews;
 
 import com.astound.presentation.productreviews.entities.Category;
+import com.astound.presentation.productreviews.entities.Customer;
 import com.astound.presentation.productreviews.entities.Product;
 import com.astound.presentation.productreviews.repository.CategoryRepository;
+import com.astound.presentation.productreviews.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +30,8 @@ public class AppStartupRunner implements ApplicationRunner
 	}
 
 	private final CategoryRepository categoryRepository;
+	private final CustomerRepository customerRepository;
+	private final PasswordEncoder encoder;
 
 	@Override
 	public void run(ApplicationArguments args)
@@ -60,5 +65,17 @@ public class AppStartupRunner implements ApplicationRunner
 		category2.setProducts(Arrays.asList(product4, product5));
 
 		categoryRepository.getCategories().add(category2);
+
+		createCustomers();
+	}
+
+	private void createCustomers() {
+		Customer user = new Customer("user", "user", encoder.encode("user"), 1L, true);
+		Customer support = new Customer("support", "support", encoder.encode("support"), 2L, true);
+		Customer admin = new Customer("admin", "admin", encoder.encode("admin"), 7L, true);
+
+		customerRepository.add(user);
+		customerRepository.add(support);
+		customerRepository.add(admin);
 	}
 }
