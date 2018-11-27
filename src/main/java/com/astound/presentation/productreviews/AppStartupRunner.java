@@ -9,7 +9,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,13 +18,6 @@ import java.util.Arrays;
 @ConditionalOnProperty(value = "import.testdata", havingValue = "true")
 public class AppStartupRunner implements ApplicationRunner
 {
-	@PostConstruct
-	public void onStartUp()
-	{
-		System.out.println(
-				"--------------------------------AppStartupRunner loaded-------------------------------------------------------");
-	}
-
 	private final CategoryRepository categoryRepository;
 
 	@Override

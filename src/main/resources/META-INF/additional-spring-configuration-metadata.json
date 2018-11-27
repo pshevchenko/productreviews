@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "import.testdata",
+      "type": "java.lang.String",
+      "description": "Test data import."
+    },
+    {
+      "name": "import.testdata.admin",
+      "type": "java.lang.String",
+      "description": "Admin user import."
+    }
+  ]
+}
