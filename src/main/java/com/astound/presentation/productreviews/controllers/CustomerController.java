@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import static com.astound.presentation.productreviews.controllers.ControllerConstants.ERROR_PAGE;
 import static com.astound.presentation.productreviews.controllers.ControllerConstants.REGISTRATION_PAGE;
 
 
@@ -22,20 +21,13 @@ public class CustomerController
 	public String registrationPage(Model model)
 	{
 		model.addAttribute("customer", new Customer());
+		model.addAttribute("customers", customerRepository.getAllCustomers());
 		return REGISTRATION_PAGE;
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(Customer customer, Model model)
 	{
-		boolean loginIsBusy = customerRepository.getAllCustomers().stream()
-				.anyMatch(customer1 -> customer1.getLogin().equals(customer.getLogin()));
-
-		if (loginIsBusy)
-		{
-			return ERROR_PAGE;
-		}
-
 		customerRepository.add(customer);
 		return registrationPage(model);
 	}
