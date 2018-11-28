@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -52,7 +54,6 @@ public class CustomerController
 		Authentication authentication = new UsernamePasswordAuthenticationToken(customer, null, customer.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		session.setAttribute("username", customer.getLogin());
 		return registrationPage(model);
 	}
 

@@ -1,5 +1,6 @@
 package com.astound.presentation.productreviews;
 
+import com.astound.presentation.productreviews.entities.Authority;
 import com.astound.presentation.productreviews.entities.Category;
 import com.astound.presentation.productreviews.entities.Customer;
 import com.astound.presentation.productreviews.entities.Product;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 
 @Component
@@ -67,6 +70,7 @@ public class AppStartupRunner implements ApplicationRunner
 		categoryRepository.getCategories().add(category2);
 
 		createCustomers();
+		printRoles();
 	}
 
 	private void createCustomers() {
@@ -77,5 +81,13 @@ public class AppStartupRunner implements ApplicationRunner
 		customerRepository.add(user);
 		customerRepository.add(support);
 		customerRepository.add(admin);
+	}
+
+	private void printRoles() {
+		LongStream.range(1, 8).forEach(value -> {
+			System.out.println("value: "+value+", roles: "+Arrays.stream(Authority.values())
+					.filter(authority -> (value & (1 << authority.ordinal())) != 0)
+					.collect(Collectors.toList()));
+		});
 	}
 }
