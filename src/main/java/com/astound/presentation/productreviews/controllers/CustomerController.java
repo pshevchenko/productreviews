@@ -25,7 +25,6 @@ public class CustomerController
 {
 	private final CustomerRepository customerRepository;
 	private final PasswordEncoder encoder;
-//	private final RedisOperationsSessionRepository redisRepository;
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String registrationPage(Model model)
@@ -61,9 +60,4 @@ public class CustomerController
 	public String loginPage() {
 		return "login";
 	}
-
-//	private void destroyPreviousSession(String login) {
-//		redisRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, login)
-//				.values().forEach((Consumer<ExpiringSession>) redisSession -> redisRepository.delete(redisSession.getId()));
-//	}
 }
