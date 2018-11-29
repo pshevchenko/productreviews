@@ -6,6 +6,7 @@ import com.astound.presentation.productreviews.repository.ProductRepository;
 import com.astound.presentation.productreviews.repository.ReviewRepository;
 import com.astound.presentation.productreviews.repository.stub.ProductRepositoryStub;
 import com.astound.presentation.productreviews.repository.stub.ReviewRepositoryStub;
+import com.astound.presentation.productreviews.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,14 +26,17 @@ import static com.astound.presentation.productreviews.controllers.ControllerCons
 public class ProductController
 {
 	@Autowired
-	private final ProductRepository productRepository;
-	@Autowired
-	private final ReviewRepository reviewRepository;
+	private ProductService productService;
 
 	@GetMapping(value = "/{productId}")
 	public String getProduct(@PathVariable Integer productId, Model model)
 	{
-		Product product = productRepository.getProductById(productId);
+		Product product = productService.getProductById(productId);
+		return getPage(model, product);
+	}
+
+	private String getPage(Model model, Product product)
+	{
 		if (product != null)
 		{
 			model.addAttribute("product", product);
@@ -49,21 +53,8 @@ public class ProductController
 	public String addReview(@PathVariable Integer productId, Review review, Model model)
 	{
 
-		Product product = productRepository.getProductById(productId);
-
-		if (product != null)
-		{
-			reviewRepository.save(review);
-			product.getReviews().add(review);
-			productRepository.save(product);
-			model.addAttribute("product", product);
-			model.addAttribute("review", new Review());
-		}
-		else
-		{
-			return ERROR_PAGE;
-		}
-		return PRODUCT_PAGE;
+		Product product = productService.addReview(productId, review);
+		return getPage(model, product);
 	}
 
 }
