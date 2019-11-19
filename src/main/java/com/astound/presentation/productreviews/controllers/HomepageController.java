@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class HomepageController
 	}
 
 	@RequestMapping(value = "/thanks")
+	@ResponseBody
 	public String getThanks()
 	{
 		return "thanks";
